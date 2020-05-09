@@ -3,7 +3,7 @@
 #include <cmath>
 #include <iomanip>
 
-// 2019.5.23.01.00×îÖÕĞŞ¸Ä
+// 2019.5.23.01.00æœ€ç»ˆä¿®æ”¹
 using namespace std;
 Matrix::Matrix()
 {
@@ -11,15 +11,15 @@ Matrix::Matrix()
 	colNum = 0;
 	item = NULL;
 }
-//Áã¾ØÕó
+//é›¶çŸ©é˜µ
 Matrix::Matrix(int m, int n)
 {
 	if (m < 0 || n < 0)
 	{
-        cout << "¾ØÕó´óĞ¡²»ÄÜÎª¸ºÊı\n";
-        return;
+		cout << "çŸ©é˜µå¤§å°ä¸èƒ½ä¸ºè´Ÿ\n";
+		return;
 	}
-    rowNum = m;
+	rowNum = m;
 	colNum = n;
 	item = new double[m*n];
 	for (int i = 0; i < m*n; i++)
@@ -28,7 +28,7 @@ Matrix::Matrix(int m, int n)
 	}
 }
 
-//Ò²¿ÉÓÃ¶şÎ¬Êı×é³õÊ¼»¯
+//ä¹Ÿå¯ç”¨äºŒç»´æ•°ç»„åˆå§‹åŒ–
 Matrix::Matrix(double* items, int m, int n)
 {
 	rowNum = m;
@@ -39,7 +39,7 @@ Matrix::Matrix(double* items, int m, int n)
 		item[i] = items[i];
 	}
 }
-//µ¥Î»¾ØÕó
+//å•ä½çŸ©é˜µ
 Matrix::Matrix(int n)
 {
 	rowNum = colNum = n;
@@ -59,7 +59,7 @@ Matrix::Matrix(const Matrix &M)
 {
 	colNum = M.colNum;
 	rowNum = M.rowNum;
-	//ÕâÀï²»ÄÜ¶ÔÖ¸ÕëÖ±½Ó¸³Öµ,¸´ÖÆ¶ÔÇóÄæ¡¢×ªÖÃµÈ²Ù×÷»áÓ°ÏìÔ­¾ØÕó
+	//è¿™é‡Œä¸èƒ½å¯¹æŒ‡é’ˆç›´æ¥èµ‹å€¼,å¤åˆ¶å¯¹æ±‚é€†ã€è½¬ç½®ç­‰æ“ä½œä¼šå½±å“åŸçŸ©é˜µ
 	item = new double[colNum*rowNum];
 	for (int i = 0; i < colNum*rowNum; i++)
 	{
@@ -213,7 +213,7 @@ Matrix Matrix::operator *(const Matrix &m)
 {
 	if (colNum != m.rowNum)
 	{
-		cout << "ÎŞ·¨Ïà³Ë£¡";
+		cout << "æ— æ³•ç›¸ä¹˜ï¼";
 		return *this;
 	}
 	Matrix _copy(this->rowNum, m.colNum);
@@ -239,7 +239,7 @@ double Matrix::operator /(const double f)
 		_copy = item[0] / f;
 		return _copy;
 	}
-	else cout << "¾ØÕóĞĞÊıºÍÁĞÊı²»ÎªÒ»"<<endl;
+	else cout << "çŸ©é˜µè¡Œæ•°å’Œåˆ—æ•°ä¸ä¸ºä¸€"<<endl;
 	return _copy;
 }
 Matrix Matrix::Inverse()
@@ -249,13 +249,12 @@ Matrix Matrix::Inverse()
 	Matrix error(colNum,colNum);
 	if (colNum != rowNum)
 	{
-		cout << "¾ØÕó²»¿ÉÄæ£¡" << endl;
+		cout << "çŸ©é˜µä¸å¯é€†ï¼" << endl;
 		return *this;
 	}
 	for (int i = 0; i < colNum; i++)
 	{
 		int MaxRow = i;
-        //ÕÒµ½µ±Ç°ÁĞ×î´óµÄÔªËØ£¬²¢ÉèÎªÖ÷Ôª£¨ÎªÁË·½±ãÅĞ¶ÏÊÇ·ñÎªÂúÖÈ¾ØÕó"
 		double max = fabs(_copy.get(i, i));
 		for (int j = i; j < rowNum; j++)
 		{
@@ -267,22 +266,20 @@ Matrix Matrix::Inverse()
 		}
 		if (max == 0)
 		{
-			cout << "²»ÊÇÂúÖÈ¾ØÕó";
+			cout << "ä¸æ˜¯æ»¡ç§©çŸ©é˜µ";
 			return error;
 		}
-        //µ±Ç°ÁĞ×î´óÖµÈç¹û²»ÔÚµ±Ç°ĞĞ£¬Ôò½»»»
 		if (MaxRow != i)
 		{
 			result.RowSwap(i, MaxRow);
 			_copy.RowSwap(i, MaxRow);
 		}
 		double r = 1.0 / _copy.get(i, i);
-        //Ö÷Ôªµ¥Î»»¯
+		//å•ä½åŒ–
 		_copy.RowSwap(i, -1, r);
 		result.RowSwap(i, -1, r);
 		for (int j = 0; j < rowNum; j++)
 		{
-            //Ö÷ÔªÌø¹ı
 			if (j == i) continue;
 			r = -_copy.get(j, i);
 			_copy.RowSwap(i, j, r);

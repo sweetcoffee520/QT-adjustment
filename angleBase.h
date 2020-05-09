@@ -1,7 +1,6 @@
 #ifndef ANGLEBASE_H
 #define ANGLEBASE_H
 #include <iostream>
-#include <QTextStream>
 #include <sstream>
 class angleBase
 {
@@ -18,9 +17,9 @@ public:
     angleBase operator+(const angleBase &m);
     angleBase operator-(int m);
     angleBase operator+(int m);
-    QString show_angle();
+    friend angleBase operator-(int m,angleBase &ang);
+    void show_angle();
     friend std::ostringstream& operator<< (std::ostringstream &os, const angleBase &m);
-    friend QTextStream& operator<<(QTextStream &os, const angleBase &m);
     double toReg();   //工程角度转化成弧度
     double toDeg();   //工程角度化成数学角度
     int degree;

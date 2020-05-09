@@ -1,8 +1,6 @@
 #include "angleBase.h"
 #include <cmath>
 #include <iostream>
-#include <QTextStream>
-#include <qstring.h>
 #define pi 3.1415926
 
     angleBase::angleBase()
@@ -102,7 +100,14 @@
         temp.degree %= 360;
         return temp;
     }
-    double angleBase::toReg()
+    angleBase operator-(int m, angleBase &ang)
+    {
+        angleBase temp = ang;
+        temp.degree = m - ang.degree;
+        while (temp.degree < 0) temp.degree += 360;
+        temp.degree %= 360;
+        return temp;
+    }    double angleBase::toReg()
     {
         double temp;
         temp = (degree + minute / 60.0 + second / 3600.0) * 3.1415926 / 180.0;
@@ -114,23 +119,15 @@
         temp = (degree + minute / 60.0 + second / 3600.0);
         return temp;
     }
-    QString angleBase::show_angle()
+    void angleBase::show_angle()
     {
-        QString temp;
-        temp = QString::number(degree) + " "+ QString::number(minute) + " " + QString::number(second) + " ";
-        return temp;
+        std::cout << degree << "°" << minute << "'" << second << "''";
     }
     std::ostringstream& operator<<(std::ostringstream &os,const angleBase &m)
     {
         os << m.degree << "°" << m.minute << "'" << m.second << "''"<<'\n';
         return os;
     }
-    QTextStream& operator<<(QTextStream &os, const angleBase &m)
-    {
-        os << m.degree << "°" << m.minute << "'" << m.second << "''" << '\n';
-        return os;
-    }
-
     double DegtoReg(double degree)
     {
         while(degree>360)

@@ -1,41 +1,43 @@
-#pragma once
+#ifndef MATRIX_H
+#define MATRIX_H
 #include <iostream>
 class Matrix
 {
 public:
-	Matrix();
-	Matrix(int m, int n);			 //¹¹½¨Ò»¸öm*nµÄÈ«Áã¾ØÕó
-	Matrix(int n);				 //¹¹½¨Ò»¸ön*nµÄµ¥Î»¾ØÕó
-	Matrix(const Matrix &);		 //¿½±´¹¹Ôìº¯Êı£¬Éî¿½±´
-	Matrix(double* items, int m, int n);//¸ù¾İÊı×é¿½±´Ò»¸ö¾ØÕó
+	Matrix();   //æ„å»ºä¸€ä¸ªç©ºçŸ©é˜µ
+	Matrix(int m, int n);			 //æ„å»ºä¸€ä¸ªm*nçš„å…¨é›¶çŸ©é˜µ
+	Matrix(int n);				 //æ„å»ºä¸€ä¸ªn*nçš„å•ä½çŸ©é˜µ
+	Matrix(const Matrix &);		 //æ‹·è´æ„é€ å‡½æ•°ï¼Œæ·±æ‹·è´
+	Matrix(double* items, int m, int n);//æ ¹æ®æ•°ç»„æ‹·è´ä¸€ä¸ªçŸ©é˜µ
 	~Matrix();
 
-	int getRowNum() const;				//·µ»Ø¾ØÕóµÄĞĞÊı
-	int getColNum() const;				//·µ»Ø¾ØÕóµÄÁĞÊı
+	int getRowNum() const;				//è¿”å›çŸ©é˜µçš„è¡Œæ•°
+	int getColNum() const;				//è¿”å›çŸ©é˜µçš„åˆ—æ•°
 
-	Matrix Trans() const;				//½«¾ØÕó×ªÖÃ
-	//¾ØÕó³õµÈĞĞ±ä»»
-    //Èç¹ûj=-1,Ôò¶ÔiĞĞÀ©´ómultiply±¶
-    //Èç¹ûjÔÚÈ¡Öµ·¶Î§ÄÚ£¬Ôò½«µÚiĞĞÀ©´ómultiply±¶¼Óµ½jĞĞ
+	Matrix Trans() const;				//å°†çŸ©é˜µè½¬ç½®
+	//çŸ©é˜µåˆç­‰è¡Œå˜æ¢
+	//å¦‚æœj=-1,åˆ™å¯¹iæ‰©å¤§multiplyå€
+	//å¦‚æœjåœ¨å–å€¼èŒƒå›´å†…ï¼Œåˆ™å°†ç¬¬iè¡Œæ‰©å¤§multiplyå€åŠ åˆ°jè¡Œ
 	void RowSwap(int i, int j, double multiply);
-	//½»»»Á½ĞĞ
+	//äº¤æ¢ä¸¤è¡Œ
 	void RowSwap(int i, int j);
-	double get(int i, int j) const;			//·µ»Ø¾ØÕóµÚiĞĞjÁĞÔªËØ
-	void set(int i, int j, double val);		//ÉèÖÃ¾ØÕóµÚiĞĞjÁĞÔªËØ
+	double get(int i, int j) const;			//è¿”å›çŸ©é˜µç¬¬iè¡Œjåˆ—å…ƒç´ 
+	void set(int i, int j, double val);		//è®¾ç½®çŸ©é˜µç¬¬iè¡Œjåˆ—å…ƒç´ 
 
 
-	Matrix operator +(const Matrix &m);	 	//Á½¸ö¾ØÕóÏà¼Ó
-	Matrix operator -(const Matrix &m);	    //Á½¸ö¾ØÕóÏà¼õ
-	Matrix operator *(const Matrix &m);     //Á½¸ö¾ØÕóÏà³Ë
-	double operator /(const double f);      //µ±¾ØÕóÎªÒ»ĞĞÒ»ÁĞÊ±³ıÒÔ³£Êı
+	Matrix operator +(const Matrix &m);	 	//ä¸¤ä¸ªçŸ©é˜µç›¸åŠ 
+	Matrix operator -(const Matrix &m);	    //ä¸¤ä¸ªçŸ©é˜µç›¸å‡
+	Matrix operator *(const Matrix &m);     //ä¸¤ä¸ªçŸ©é˜µç›¸ä¹˜
+	double operator /(const double f);      //å½“çŸ©é˜µä¸ºä¸€è¡Œä¸€åˆ—æ—¶é™¤ä»¥å¸¸æ•°
 	Matrix& operator=(const Matrix &m);
-	Matrix operator -();                    //¶Ô¾ØÕóÈ¡¸º
-	Matrix Inverse();
-	friend std::ostream& operator <<(std::ostream &os, const Matrix &m);//¼òµ¥ÖØÔØ<<
-    Matrix operator *(const double f);         //¾ØÕó³ËÒÔ³£Êı£¬³£ÊıÔÚºó
-	friend Matrix operator *(const double f,const Matrix &m);    //¾ØÕó³ËÒÔ³£Êı£¬³£ÊıÔÚÇ°
+	Matrix operator -();                    //å¯¹çŸ©é˜µå–è´Ÿ
+	Matrix Inverse();                    //çŸ©é˜µæ±‚é€†
+	friend std::ostream& operator <<(std::ostream &os, const Matrix &m);//ç®€å•é‡è½½<<
+    Matrix operator *(const double f);         //çŸ©é˜µä¹˜ä»¥å¸¸æ•°ï¼Œå¸¸æ•°åœ¨å
+	friend Matrix operator *(const double f,const Matrix &m);    //çŸ©é˜µä¹˜ä»¥å¸¸æ•°ï¼Œå¸¸æ•°åœ¨å‰
 private:
-	double *item;		//Ö¸Ïò¾ØÕóÊ×ÔªËØµÄÖ¸Õë
-	int rowNum;		//¾ØÕóĞĞÊı
-	int colNum;		//¾ØÕóÁĞÊı
+	double *item;		//æŒ‡å‘çŸ©é˜µé¦–å…ƒç´ çš„æŒ‡é’ˆ
+	int rowNum;		//çŸ©é˜µè¡Œæ•°
+	int colNum;		//çŸ©é˜µåˆ—æ•°
 };
+#endif //MARTIX_H

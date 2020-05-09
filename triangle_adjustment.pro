@@ -19,12 +19,14 @@ SOURCES += \
     Matrix.cpp \
     angleBase.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    triangleBase.cpp
 
 HEADERS += \
     Matrix.h \
     angleBase.h \
-    mainwindow.h
+    mainwindow.h \
+    triangleBase.h
 
 FORMS += \
     mainwindow.ui
