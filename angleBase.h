@@ -7,7 +7,7 @@ class angleBase
 public:
     angleBase();
     //度分秒输入
-    angleBase(int d, int m, int s);
+    angleBase(int d, int m, double s);
     //拷贝
     angleBase(const angleBase &m);
     //小数输入，flag为0是工程角度，为1是弧度，默认为0

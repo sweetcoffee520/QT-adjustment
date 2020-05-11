@@ -29,5 +29,8 @@ void MainWindow::on_actionopen_triggered()
     //QString filecontent=infile.readAll();
     QString filecontent=QString(infile.readAll());
     base.readdata(filecontent);
+    base.get_coordinate();
+    base.get_edgeinf();
+    base.get_B_P_l();
     infile.close();
 }

@@ -9,7 +9,7 @@
         minute = 0;
         second = 0;
     }
-    angleBase::angleBase(int d, int m, int s)
+    angleBase::angleBase(int d, int m, double s)
     {
         d %= 360;
         degree = d;
@@ -130,7 +130,7 @@
     }
     double DegtoReg(double degree)
     {
-        while(degree>360)
+        while(degree>=360)
         {
             degree -= 360;
         }
@@ -139,6 +139,7 @@
             degree += 360;
         }
         double reg = degree * pi / 180.0;
+        //reg=reg-int(reg/(2*pi))*pi;
         return reg;
     }
 
@@ -156,35 +157,29 @@
         return degree;
     }
 
-    angleBase DegtoengDeg(double m)
+    angleBase DegtoengDeg(double degree)
     {
-        while (m>360)
+        while(degree<0)
         {
-            m -= 360;
+            degree += 360;
         }
-        while(m<0)
-        {
-            m += 360;
-        }
+        degree=fmod(degree,360);
         angleBase temp;
-        temp.degree = int(m);
-        temp.minute = int((m - temp.degree) * 60);
-        temp.second = ((m - temp.degree) * 60 - temp.minute) * 60;
+        temp.degree = int(degree);
+        temp.minute = int((degree - temp.degree) * 60);
+        temp.second = ((degree - temp.degree) * 60 - temp.minute) * 60;
         return temp;
     }
 
-    angleBase RegtoengDeg(double m)
+    angleBase RegtoengDeg(double reg)
     {
-        while (m<0)
+        while(reg>2*pi)
         {
-            m += 2 * pi;
+            reg -= 2 * pi;
         }
-        while(m>2*pi)
-        {
-            m -= 2 * pi;
-        }
+        reg=fmod(reg,2*pi);
         angleBase temp;
-        double n = RegtoDeg(m);
+        double n = RegtoDeg(reg);
         temp = DegtoengDeg(n);
         return temp;
     }
