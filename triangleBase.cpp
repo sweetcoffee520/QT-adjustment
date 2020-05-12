@@ -1,4 +1,3 @@
-#include "triangleBase.h"
 #include <QFile>
 #include <QMessageBox>
 #include "mainwindow.h"
@@ -10,7 +9,12 @@
 #define p0 (180*3600/PI)
 triangleBase::triangleBase()
 {
-
+    all_point_num=0;
+    know_edge_num=0;
+    know_point_num=0;
+    know_dirangel_num=0;
+    observe_angle_num=0;
+    alpha=0;
 }
 
 void triangleBase::readdata(QString data)
@@ -29,6 +33,7 @@ void triangleBase::readdata(QString data)
     know_e=new edge[know_edge_num];
     know_dir_ang=new dir_angle[know_dirangel_num];
     ang=new angle[observe_angle_num];
+    L0=Matrix(observe_angle_num,1);
     list.clear();
     QString ssr=ss.readLine();
     list=ssr.split(QRegExp("\\s+|,+"));
@@ -79,6 +84,7 @@ void triangleBase::readdata(QString data)
         ang[i].degree=list.at(4).toDouble();
         ang[i].minute=list.at(5).toDouble();
         ang[i].second=list.at(6).toDouble();
+        L0.set(i,0,angleBase(ang[i].degree,ang[i].minute,ang[i].second).toDeg());
         list.clear();
     }
     //找到中间点
@@ -113,6 +119,7 @@ void triangleBase::get_coordinate()
     //此函数只能计算与方位角增加相反方向的坐标，并且是按照逆时针顺序计算估值坐标，除了中间点，其余所有未知点都以中间点为一个已知点得出
     point A,B;
     angleBase C,D;
+    X0=Matrix(2*(all_point_num-know_point_num),1);
     //先计算中间点坐标
     //判断中间点是否已知
     if(p[middlepoint_id].isKnow==false)
@@ -156,6 +163,8 @@ void triangleBase::get_coordinate()
         //p[middlepoint_id].isKnow=true;
         p[middlepoint_id].x=(B.x*sin(D.toReg())*cos(C.toReg())+A.x*cos(D.toReg())*sin(C.toReg())+(A.y-B.y)*sin(D.toReg())*sin(C.toReg()))/(sin(D.toReg())*cos(C.toReg())+cos(D.toReg())*sin(C.toReg()));
         p[middlepoint_id].y=(B.y*sin(D.toReg())*cos(C.toReg())+A.y*cos(D.toReg())*sin(C.toReg())+(B.x-A.x)*sin(D.toReg())*sin(C.toReg()))/(sin(D.toReg())*cos(C.toReg())+cos(D.toReg())*sin(C.toReg()));
+        X0.set(2*(middlepoint_id-know_point_num),0,p[middlepoint_id].x);
+        X0.set(2*(middlepoint_id-know_point_num)+1,0,p[middlepoint_id].y);
         //qDebug()<<p[middlepoint_id].x;
     }
     //计算其他点坐标
@@ -195,6 +204,8 @@ void triangleBase::get_coordinate()
             //p[i].isKnow=true;
             p[i].x=(B.x*sin(D.toReg())*cos(C.toReg())+A.x*cos(D.toReg())*sin(C.toReg())+(A.y-B.y)*sin(D.toReg())*sin(C.toReg()))/(sin(D.toReg())*cos(C.toReg())+cos(D.toReg())*sin(C.toReg()));
             p[i].y=(B.y*sin(D.toReg())*cos(C.toReg())+A.y*cos(D.toReg())*sin(C.toReg())+(B.x-A.x)*sin(D.toReg())*sin(C.toReg()))/(sin(D.toReg())*cos(C.toReg())+cos(D.toReg())*sin(C.toReg()));
+            X0.set(2*(i-know_point_num),0,p[i].x);
+            X0.set(2*(i-know_point_num)+1,0,p[i].y);
         }
         //qDebug()<<p[i].id<<" "<<QString("%1").arg(p[i].x,0,'f',8)<<" "<<QString("%1").arg(p[i].y,0,'f',8);
         //qDebug()<<p[i].isKnow;
@@ -267,6 +278,9 @@ void triangleBase::get_B_P_l()
     x=Matrix((all_point_num-know_point_num)*2,1);
     C=Matrix(know_dirangel_num+know_edge_num,2*(all_point_num-know_point_num));
     Wx=Matrix(know_dirangel_num+know_edge_num,1);
+    X=Matrix((all_point_num-know_point_num)*2,1);
+    V=Matrix(observe_angle_num,1);
+    L=Matrix(observe_angle_num,1);
     point S,M,E;
     angleBase appro_angle;
     double a,b,c,d,appro_lenth;
@@ -290,10 +304,10 @@ void triangleBase::get_B_P_l()
 //           }
 //        }
         //计算系数值
-        a=p0*1e-3*(M.x-S.x)/((M.x-S.x)*(M.x-S.x)+(M.y-S.y)*(M.y-S.y));
-        b=p0*1e-3*(M.y-S.y)/((M.x-S.x)*(M.x-S.x)+(M.y-S.y)*(M.y-S.y));
-        c=p0*1e-3*(M.x-E.x)/((M.x-E.x)*(M.x-E.x)+(M.y-E.y)*(M.y-E.y));
-        d=p0*1e-3*(M.y-E.y)/((M.x-E.x)*(M.x-E.x)+(M.y-E.y)*(M.y-E.y));
+        a=p0*(M.x-S.x)/((M.x-S.x)*(M.x-S.x)+(M.y-S.y)*(M.y-S.y));
+        b=p0*(M.y-S.y)/((M.x-S.x)*(M.x-S.x)+(M.y-S.y)*(M.y-S.y));
+        c=p0*(M.x-E.x)/((M.x-E.x)*(M.x-E.x)+(M.y-E.y)*(M.y-E.y));
+        d=p0*(M.y-E.y)/((M.x-E.x)*(M.x-E.x)+(M.y-E.y)*(M.y-E.y));
         //qDebug()<<a<<" "<<b<<" "<<c<<" "<<d;
         //分情况
         //1.起点为已知点，其余为未知点
@@ -415,8 +429,8 @@ void triangleBase::get_B_P_l()
         //如果是终点，则只需把相应邻边的方位角180即可，下方计算也只需要右角减左角即可
         //注释这么多只是提醒以后的自己，其实两种写法差别并不大，代码量相同，只是第二种更好理解一点
         angleBase temp=right-left;
-        //qDebug()<<QString::number(left.toDeg())<<" "<<QString::number(right.toDeg());
-        //qDebug()<<QString::number(temp.toDeg());
+        //qDebug()<<left.degree<<" "<<left.minute<<" "<<left.second<<" "<<right.degree<<" "<<right.minute<<" "<<right.second;
+        //qDebug()<<temp.degree<<" "<<temp.minute<<" "<<temp.second;
         if(temp.minute==ang[i].minute)
         {
             l.set(i,0,ang[i].second-temp.second);
@@ -506,8 +520,8 @@ void triangleBase::get_B_P_l()
                     else if(know_dir_ang[i].endID==p[k].id){eid=k-know_point_num;E=p[k];}
                 }
                 //计算系数
-                a=p0*1e-3*(S.x-E.x)/((S.x-E.x)*(S.x-E.x)+(S.y-E.y)*(S.y-E.y));
-                b=p0*1e-3*(S.y-E.y)/((S.x-E.x)*(S.x-E.x)+(S.y-E.y)*(S.y-E.y));
+                a=p0*(S.x-E.x)/((S.x-E.x)*(S.x-E.x)+(S.y-E.y)*(S.y-E.y));
+                b=p0*(S.y-E.y)/((S.x-E.x)*(S.x-E.x)+(S.y-E.y)*(S.y-E.y));
                 appro_angle.degree=e[j].degree;
                 appro_angle.minute=e[j].minute;
                 appro_angle.second=e[j].second;
@@ -520,8 +534,8 @@ void triangleBase::get_B_P_l()
                     if(know_dir_ang[i].startID==p[k].id){sid=k-know_point_num;S=p[k];}
                     else if(know_dir_ang[i].endID==p[k].id){eid=k-know_point_num;E=p[k];}
                 }
-                a=p0*1e-3*(S.x-E.x)/((S.x-E.x)*(S.x-E.x)+(S.y-E.y)*(S.y-E.y));
-                b=p0*1e-3*(S.y-E.y)/((S.x-E.x)*(S.x-E.x)+(S.y-E.y)*(S.y-E.y));
+                a=p0*(S.x-E.x)/((S.x-E.x)*(S.x-E.x)+(S.y-E.y)*(S.y-E.y));
+                b=p0*(S.y-E.y)/((S.x-E.x)*(S.x-E.x)+(S.y-E.y)*(S.y-E.y));
                 appro_angle.degree=e[j].degree;
                 appro_angle.minute=e[j].minute;
                 appro_angle.second=e[j].second;
@@ -571,14 +585,15 @@ void triangleBase::get_B_P_l()
         //qDebug()<<appro_angle.degree<<" "<<appro_angle.minute<<" "<<appro_angle.second;
         //qDebug()<<Wx.get(i+know_edge_num,0);
     }
-//    for(int i=0;i<C.getRowNum();i++)
-//        for(int j=0;j<C.getColNum();j++)
-//            qDebug()<<C.get(1,j);
-    //std::cout<<l;
     NBB=B.Trans()*P*B;
     NCC=C*NBB.Inverse()*C.Trans();
     W=B.Trans()*P*l;
     x=(NBB.Inverse()-NBB.Inverse()*C.Trans()*NCC.Inverse()*C*NBB.Inverse())*W+NBB.Inverse()*C.Trans()*NCC.Inverse()*Wx;
-   for(int i=0;i<x.getRowNum();i++)
-        qDebug()<<x.get(i,0);
+    X=X0+x;
+    V=B*x-l;
+    L=L0+V*(1/3600.0);
+    alpha=V.Trans()*P*V/(observe_angle_num-2*(all_point_num-know_point_num));
+    //qDebug()<<DegtoengDeg(L.get(1,0)).second;
+    //qDebug()<<DegtoengDeg(L0.get(1,0)).second;
+    //qDebug()<<L.get(1,0)<<" "<<L0.get(1,0)<<" "<<V.get(1,0)/3600;
 }

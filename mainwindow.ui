@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>三角网平差</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="Image.qrc">
+    <normaloff>:/Image/Image/technology.png</normaloff>:/Image/Image/technology.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget"/>
   <widget class="QStatusBar" name="statusbar"/>
@@ -26,18 +30,146 @@
    </property>
    <widget class="QMenu" name="menufile">
     <property name="title">
-     <string>file</string>
+     <string>文件</string>
     </property>
+    <widget class="QMenu" name="menusave">
+     <property name="title">
+      <string>保存</string>
+     </property>
+     <addaction name="actioncoor_data_2"/>
+     <addaction name="actionobserve_data"/>
+    </widget>
     <addaction name="actionopen"/>
+    <addaction name="separator"/>
+    <addaction name="separator"/>
+    <addaction name="actionclose"/>
+    <addaction name="menusave"/>
+   </widget>
+   <widget class="QMenu" name="menushow">
+    <property name="title">
+     <string>显示</string>
+    </property>
+    <widget class="QMenu" name="menushow_data">
+     <property name="title">
+      <string>显示数据</string>
+     </property>
+     <addaction name="actionorigin_data"/>
+     <addaction name="actionadjusted_data"/>
+     <addaction name="actioncoor_data"/>
+    </widget>
+    <addaction name="menushow_data"/>
+    <addaction name="separator"/>
+    <addaction name="actionshow_graphic"/>
+   </widget>
+   <widget class="QMenu" name="menuhelp">
+    <property name="title">
+     <string>帮助</string>
+    </property>
+    <addaction name="actionhelp"/>
+   </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>平差</string>
+    </property>
+    <addaction name="actionstart_adjust"/>
    </widget>
    <addaction name="menufile"/>
+   <addaction name="menushow"/>
+   <addaction name="menu"/>
+   <addaction name="menuhelp"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionopen"/>
+   <addaction name="actioncoor_data_2"/>
+   <addaction name="actionstart_adjust"/>
+   <addaction name="actionhelp"/>
+   <addaction name="actionclose"/>
   </widget>
   <action name="actionopen">
+   <property name="icon">
+    <iconset resource="Image.qrc">
+     <normaloff>:/Image/Image/open.png</normaloff>:/Image/Image/open.png</iconset>
+   </property>
    <property name="text">
-    <string>open</string>
+    <string>打开</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::WindowShortcut</enum>
+   </property>
+  </action>
+  <action name="actionclose">
+   <property name="icon">
+    <iconset resource="Image.qrc">
+     <normaloff>:/Image/Image/close.png</normaloff>:/Image/Image/close.png</iconset>
+   </property>
+   <property name="text">
+    <string>关闭</string>
+   </property>
+  </action>
+  <action name="actionshow_graphic">
+   <property name="text">
+    <string>显示相对图形</string>
+   </property>
+  </action>
+  <action name="actionorigin_data">
+   <property name="text">
+    <string>原始观测值</string>
+   </property>
+  </action>
+  <action name="actionadjusted_data">
+   <property name="text">
+    <string>平差后观测值</string>
+   </property>
+  </action>
+  <action name="actionhelp">
+   <property name="icon">
+    <iconset resource="Image.qrc">
+     <normaloff>:/Image/Image/help.png</normaloff>:/Image/Image/help.png</iconset>
+   </property>
+   <property name="text">
+    <string>帮助文档</string>
+   </property>
+  </action>
+  <action name="actionstart_adjust">
+   <property name="icon">
+    <iconset resource="Image.qrc">
+     <normaloff>:/Image/Image/execute.png</normaloff>:/Image/Image/execute.png</iconset>
+   </property>
+   <property name="text">
+    <string>开始平差</string>
+   </property>
+  </action>
+  <action name="actioncoor_data">
+   <property name="text">
+    <string>坐标平差值</string>
+   </property>
+  </action>
+  <action name="actioncoor_data_2">
+   <property name="icon">
+    <iconset resource="Image.qrc">
+     <normaloff>:/Image/Image/save.png</normaloff>:/Image/Image/save.png</iconset>
+   </property>
+   <property name="text">
+    <string>坐标数据</string>
+   </property>
+  </action>
+  <action name="actionobserve_data">
+   <property name="text">
+    <string>观测数据</string>
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="Image.qrc"/>
+ </resources>
  <connections/>
 </ui>

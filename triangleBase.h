@@ -3,7 +3,6 @@
 #include "angleBase.h"
 #include "QString"
 #include "Matrix.h"
-//前置声明
 class point
 {
 public:
@@ -88,7 +87,7 @@ public:
     triangleBase();
     //读取文件数据
     void readdata(QString data);
-    //已知两点求方位角，第一个参数为起始点，第二个为终点
+    //边信息
     void get_edgeinf();
     //前方交会求坐标
     void get_coordinate();
@@ -111,8 +110,10 @@ public:
     edge *know_e;
     //已知方位角
     dir_angle *know_dir_ang;
-    int middlepoint_id=0;
-    Matrix B,P,l,x,C,W,Wx,NBB,NCC;
+    int middlepoint_id;
+    Matrix B,P,l,x,C,W,Wx,NBB,NCC,X,V,L,X0,L0;
+    //单位权中误差
+    double alpha;
 };
 
 #endif // TRIANGLEBASE_H

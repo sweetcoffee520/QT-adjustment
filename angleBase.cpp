@@ -107,7 +107,8 @@
         while (temp.degree < 0) temp.degree += 360;
         temp.degree %= 360;
         return temp;
-    }    double angleBase::toReg()
+    }
+    double angleBase::toReg()
     {
         double temp;
         temp = (degree + minute / 60.0 + second / 3600.0) * 3.1415926 / 180.0;
