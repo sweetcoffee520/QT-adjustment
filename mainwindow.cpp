@@ -279,3 +279,9 @@ void MainWindow::paint()
     painter.end();
     qDebug()<<"sdf";
 }
+
+void MainWindow::on_actionhelp_triggered()
+{
+    QString ss="先读入文件，然后平差，此程序只适用中心三角网";
+    QMessageBox::information(this,QStringLiteral("帮助"),ss);
+}

@@ -51,6 +51,8 @@ private slots:
 
     void on_actionshow_graphic_triggered();
 
+    void on_actionhelp_triggered();
+
 private:
     Ui::MainWindow *ui;
 };
