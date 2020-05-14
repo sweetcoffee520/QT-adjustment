@@ -6,6 +6,8 @@
 #include <QTableWidget>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QPaintEvent>
+#include <QDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,6 +25,12 @@ public:
     QHBoxLayout *horizontalLayout=new QHBoxLayout(centralWidget);
     QTableWidget *tableWidget=new QTableWidget();
     QLabel *label=new QLabel();
+    bool drawflag=0;
+    QDialog dialog;
+    void paint();
+
+protected:
+    bool eventFilter(QObject *watched, QEvent *event);
 
 private slots:
     void on_actionopen_triggered();

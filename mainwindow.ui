@@ -10,12 +10,18 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
    <string>三角网平差</string>
   </property>
   <property name="windowIcon">
    <iconset resource="Image.qrc">
-    <normaloff>:/Image/Image/technology.png</normaloff>:/Image/Image/technology.png</iconset>
+    <normaloff>:/Image/technology.png</normaloff>:/Image/technology.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget"/>
   <widget class="QStatusBar" name="statusbar"/>
@@ -97,7 +103,7 @@
   <action name="actionopen">
    <property name="icon">
     <iconset resource="Image.qrc">
-     <normaloff>:/Image/Image/open.png</normaloff>:/Image/Image/open.png</iconset>
+     <normaloff>:/Image/open.png</normaloff>:/Image/open.png</iconset>
    </property>
    <property name="text">
     <string>打开</string>
@@ -109,7 +115,7 @@
   <action name="actionclose">
    <property name="icon">
     <iconset resource="Image.qrc">
-     <normaloff>:/Image/Image/close.png</normaloff>:/Image/Image/close.png</iconset>
+     <normaloff>:/Image/close.png</normaloff>:/Image/close.png</iconset>
    </property>
    <property name="text">
     <string>关闭</string>
@@ -133,7 +139,7 @@
   <action name="actionhelp">
    <property name="icon">
     <iconset resource="Image.qrc">
-     <normaloff>:/Image/Image/help.png</normaloff>:/Image/Image/help.png</iconset>
+     <normaloff>:/Image/help.png</normaloff>:/Image/help.png</iconset>
    </property>
    <property name="text">
     <string>帮助文档</string>
@@ -142,7 +148,7 @@
   <action name="actionstart_adjust">
    <property name="icon">
     <iconset resource="Image.qrc">
-     <normaloff>:/Image/Image/execute.png</normaloff>:/Image/Image/execute.png</iconset>
+     <normaloff>:/Image/execute.png</normaloff>:/Image/execute.png</iconset>
    </property>
    <property name="text">
     <string>开始平差</string>
@@ -156,7 +162,7 @@
   <action name="actioncoor_data_2">
    <property name="icon">
     <iconset resource="Image.qrc">
-     <normaloff>:/Image/Image/save.png</normaloff>:/Image/Image/save.png</iconset>
+     <normaloff>:/Image/save.png</normaloff>:/Image/save.png</iconset>
    </property>
    <property name="text">
     <string>坐标数据</string>
