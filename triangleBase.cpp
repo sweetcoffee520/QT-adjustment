@@ -216,7 +216,7 @@ void triangleBase::get_edgeinf()
 {
     auto get_dirangle=[](point &A,point&B)->angleBase{
     angleBase a;
-    a=RegtoengDeg(atan2((B.y-A.y),(B.x-A.x)));   //搭配atan2使用更佳，如果使用atan，去掉下面注释部分
+    a=angleBase::RegtoengDeg(atan2((B.y-A.y),(B.x-A.x)));   //搭配atan2使用更佳，如果使用atan，去掉下面注释部分
     //qDebug()<<A.id<<" "<<A.x<<" "<<A.y<<" "<<'\n'<<B.id<<" "<<B.x<<" "<<B.y;
     //qDebug()<<atan2(B.y-A.y,B.x-A.x);
     /*if(A.x>B.x&&A.y<B.y)

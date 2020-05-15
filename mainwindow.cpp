@@ -112,7 +112,7 @@ void MainWindow::on_actionadjusted_data_triggered()
     tableWidget->setHorizontalHeaderLabels(QStringList()<<QStringLiteral("点号")<<QStringLiteral("起始点")<<QStringLiteral("中间点")<<QStringLiteral("终点")<<QStringLiteral("度分秒"));
     for (int i=0;i<base.observe_angle_num;i++)
     {
-        list<<QString::number(base.ang[i].id)<<base.ang[i].startID<<base.ang[i].middleID<<base.ang[i].endID<<QString::number(DegtoengDeg(base.L.get(i,0)).degree)+" "+QString::number(DegtoengDeg(base.L.get(i,0)).minute)+" "+QString::number(DegtoengDeg(base.L.get(i,0)).second);
+        list<<QString::number(base.ang[i].id)<<base.ang[i].startID<<base.ang[i].middleID<<base.ang[i].endID<<QString::number(angleBase::DegtoengDeg(base.L.get(i,0)).degree)+" "+QString::number(angleBase::DegtoengDeg(base.L.get(i,0)).minute)+" "+QString::number(angleBase::DegtoengDeg(base.L.get(i,0)).second);
         int col=0;
         tableWidget->setItem(i,col,new QTableWidgetItem(list.at(0)));
         tableWidget->item(i,col++)->setTextAlignment(Qt::AlignCenter);
@@ -201,7 +201,7 @@ void MainWindow::on_actionobserve_data_triggered()
         }
         QString ss="";
         for (int i=0;i<base.observe_angle_num;i++)
-        ss+=base.ang[i].startID+" "+base.ang[i].middleID+" "+base.ang[i].endID+" "+QString::number(DegtoengDeg(base.L.get(i,0)).degree)+" "+QString::number(DegtoengDeg(base.L.get(i,0)).minute)+" "+QString::number(DegtoengDeg(base.L.get(i,0)).second)+'\n';
+        ss+=base.ang[i].startID+" "+base.ang[i].middleID+" "+base.ang[i].endID+" "+QString::number(angleBase::DegtoengDeg(base.L.get(i,0)).degree)+" "+QString::number(angleBase::DegtoengDeg(base.L.get(i,0)).minute)+" "+QString::number(angleBase::DegtoengDeg(base.L.get(i,0)).second)+'\n';
         outfile.write(ss.toUtf8());
         outfile.close();
     }
