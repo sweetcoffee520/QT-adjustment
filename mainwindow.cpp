@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     this->setCentralWidget(centralWidget);
+    horizontalLayout->addWidget(tableWidget);
     dialog.installEventFilter(this);
 }
 
@@ -70,7 +71,6 @@ void MainWindow::on_actionorigin_data_triggered()
     else
     {
     QStringList list;
-    horizontalLayout->addWidget(tableWidget);
     tableWidget->clear();
     tableWidget->setColumnCount(5);
     tableWidget->setRowCount(base.observe_angle_num);
@@ -102,7 +102,6 @@ void MainWindow::on_actionadjusted_data_triggered()
         {QMessageBox::information(this,QStringLiteral("提示"),QStringLiteral("未平差"));return ;}
     }
     QStringList list;
-    horizontalLayout->addWidget(tableWidget);
     tableWidget->clear();
     tableWidget->setColumnCount(5);
     tableWidget->setRowCount(base.observe_angle_num);
@@ -133,7 +132,6 @@ void MainWindow::on_actioncoor_data_triggered()
         {QMessageBox::information(this,QStringLiteral("提示"),QStringLiteral("未平差"));return ;}
     }
     QStringList list;
-    horizontalLayout->addWidget(tableWidget);
     tableWidget->clear();
     tableWidget->setColumnCount(3);
     tableWidget->setRowCount(base.all_point_num-base.know_point_num);
