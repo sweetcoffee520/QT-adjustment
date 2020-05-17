@@ -24,7 +24,6 @@ public:
     QWidget *centralWidget=new QWidget(this);
     QHBoxLayout *horizontalLayout=new QHBoxLayout(centralWidget);
     QTableWidget *tableWidget=new QTableWidget();
-    QLabel *label=new QLabel();
     bool drawflag=0;
     QDialog dialog;
     void paint();

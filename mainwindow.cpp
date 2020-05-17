@@ -37,7 +37,6 @@ void MainWindow::on_actionopen_triggered()
         return ;
     }
     else {
-    //QString filecontent=infile.readAll();
     QString filecontent=QString(infile.readAll());
     int i;
     i=filecontent.split('\n')[0].split(QRegExp("\\s+|,+")).length();
@@ -71,7 +70,6 @@ void MainWindow::on_actionorigin_data_triggered()
     else
     {
     QStringList list;
-    horizontalLayout->removeWidget(label);
     horizontalLayout->addWidget(tableWidget);
     tableWidget->clear();
     tableWidget->setColumnCount(5);
@@ -104,7 +102,6 @@ void MainWindow::on_actionadjusted_data_triggered()
         {QMessageBox::information(this,QStringLiteral("提示"),QStringLiteral("未平差"));return ;}
     }
     QStringList list;
-    horizontalLayout->removeWidget(label);
     horizontalLayout->addWidget(tableWidget);
     tableWidget->clear();
     tableWidget->setColumnCount(5);
@@ -136,7 +133,6 @@ void MainWindow::on_actioncoor_data_triggered()
         {QMessageBox::information(this,QStringLiteral("提示"),QStringLiteral("未平差"));return ;}
     }
     QStringList list;
-    horizontalLayout->removeWidget(label);
     horizontalLayout->addWidget(tableWidget);
     tableWidget->clear();
     tableWidget->setColumnCount(3);
@@ -282,6 +278,6 @@ void MainWindow::paint()
 
 void MainWindow::on_actionhelp_triggered()
 {
-    QString ss="先读入文件，然后平差，此程序只适用中心三角网";
+    QString ss="先读入文件，然后平差，此程序只适用于中心三角网";
     QMessageBox::information(this,QStringLiteral("帮助"),ss);
 }
