@@ -271,7 +271,6 @@ void MainWindow::paint()
     path.closeSubpath();
     painter.drawPath(path);
     painter.end();
-    qDebug()<<"sdf";
 }
 
 void MainWindow::on_actionhelp_triggered()
